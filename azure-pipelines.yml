@@ -15,11 +15,11 @@ stages:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: 'Your-Service-Connection-Name'
-        subscriptionId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        azureResourceManagerConnection: 'adf-cnn'
+        subscriptionId: 'ed1dac6a-b8f5-427b-a1c7-b695e618f891'
         action: 'Create Or Update Resource Group'
-        resourceGroupName: 'your-dev-rg'
-        location: 'East US'
+        resourceGroupName: 'batch010439rg'
+        location: 'centralindia'
         templateLocation: 'Linked artifact'
         csmFile: 'ARMTemplateForFactory.json'
         csmParametersFile: 'ARMTemplateParametersForFactory.json'
