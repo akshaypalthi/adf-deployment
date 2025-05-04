@@ -45,6 +45,6 @@ stages:
               resourceGroupName: 'batch10439rg'
               location: 'centralindia'
               templateLocation: 'Linked artifact'
-              csmFile: 'ARMTemplateForFactory.json'
-              csmParametersFile: 'ARMTemplateParametersForFactory.json'
+              csmFile: 'adf-deployment/ARMTemplateForFactory.json'
+              csmParametersFile: 'adf-deployment/ARMTemplateParametersForFactory.json'
               deploymentMode: 'Incremental'
