@@ -18,7 +18,7 @@ stages:
         azureResourceManagerConnection: 'adf-cnn'
         subscriptionId: 'ed1dac6a-b8f5-427b-a1c7-b695e618f891'
         action: 'Create Or Update Resource Group'
-        resourceGroupName: 'batch010439rg'
+        resourceGroupName: 'batch10439rg'
         location: 'centralindia'
         templateLocation: 'Linked artifact'
         csmFile: 'ARMTemplateForFactory.json'
