@@ -16,11 +16,10 @@ stages:
 
     # 🔍 Debug: List files in the repo
     - script: |
-        echo "Listing files in repo root:"
-        dir
-        echo "Listing files in adf-deployment folder:"
-        dir adf-deployment
+       echo "Listing files in repo root:"
+       dir
       displayName: 'List files in build directory'
+
 
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
@@ -50,10 +49,8 @@ stages:
 
           # 🔍 Debug: List files in the repo
           - script: |
-              echo "Listing files in repo root:"
-              dir
-              echo "Listing files in adf-deployment folder:"
-              dir adf-deployment
+             echo "Listing files in repo root:"
+             dir
             displayName: 'List files in build directory'
 
           - task: AzureResourceManagerTemplateDeployment@3
