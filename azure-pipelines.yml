@@ -12,6 +12,16 @@ stages:
     pool:
       vmImage: 'windows-latest'
     steps:
+    - checkout: self
+
+    # 🔍 Debug: List files in the repo
+    - script: |
+        echo "Listing files in repo root:"
+        dir
+        echo "Listing files in adf-deployment folder:"
+        dir adf-deployment
+      displayName: 'List files in build directory'
+
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
@@ -21,8 +31,8 @@ stages:
         resourceGroupName: 'batch10439rg'
         location: 'centralindia'
         templateLocation: 'Linked artifact'
-        csmFile: 'ARMTemplateForFactory.json'
-        csmParametersFile: 'ARMTemplateParametersForFactory.json'
+        csmFile: 'adf-deployment/ARMTemplateForFactory.json'
+        csmParametersFile: 'adf-deployment/ARMTemplateParametersForFactory.json'
         deploymentMode: 'Incremental'
 
 - stage: Prod
@@ -36,6 +46,16 @@ stages:
       runOnce:
         deploy:
           steps:
+          - checkout: self
+
+          # 🔍 Debug: List files in the repo
+          - script: |
+              echo "Listing files in repo root:"
+              dir
+              echo "Listing files in adf-deployment folder:"
+              dir adf-deployment
+            displayName: 'List files in build directory'
+
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
               deploymentScope: 'Resource Group'
