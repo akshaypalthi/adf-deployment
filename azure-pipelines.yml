@@ -1,0 +1,50 @@
+trigger:
+  branches:
+    include:
+      - main
+
+stages:
+- stage: Dev
+  displayName: 'Deploy to Dev Data Factory'
+  jobs:
+  - job: DeployADF
+    displayName: 'ARM Template Deployment to Dev'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Your-Service-Connection-Name'
+        subscriptionId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'your-dev-rg'
+        location: 'East US'
+        templateLocation: 'Linked artifact'
+        csmFile: 'ARMTemplateForFactory.json'
+        csmParametersFile: 'ARMTemplateParametersForFactory.json'
+        deploymentMode: 'Incremental'
+
+- stage: Prod
+  displayName: 'Deploy to Production Data Factory'
+  dependsOn: Dev
+  condition: succeeded()
+  jobs:
+  - deployment: DeployProd
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Your-Service-Connection-Name'
+              subscriptionId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'your-prod-rg'
+              location: 'East US'
+              templateLocation: 'Linked artifact'
+              csmFile: 'ARMTemplateForFactory.json'
+              csmParametersFile: 'ARMTemplateParametersForFactory.json'
+              deploymentMode: 'Incremental'
